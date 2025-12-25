@@ -75,7 +75,7 @@ class JokeState(BaseModel):
     quit: bool = False
 
 
-def show_manu(state: JokeState) -> dict:
+def show_menu(state: JokeState) -> dict:
     user_input = input("[n] Next  [c] Category  [q] Quit  [r] Reset Jokes  [l] Change language [t] change type\n> ").strip().lower()
     return {"jokes_choice": user_input}
 
@@ -160,7 +160,7 @@ def route_choice(state: JokeState) -> str:
 
 
 workflow = StateGraph(JokeState)
-workflow.add_node("show_manu", show_manu)
+workflow.add_node("show_menu", show_menu)
 workflow.add_node("select_category", select_category)
 workflow.add_node("exit_bot", exit_bot)
 workflow.add_node("fetch_joke", fetch_joke)
@@ -168,9 +168,9 @@ workflow.add_node("reset_jokes", reset_jokes)
 workflow.add_node("change_language", change_language)
 workflow.add_node("change_type", change_type)
 
-workflow.add_edge(START, "show_manu")
+workflow.add_edge(START, "show_menu")
 workflow.add_conditional_edges(
-    "show_manu",
+    "show_menu",
     route_choice,
     {
                "fetch_joke": "fetch_joke",
@@ -182,11 +182,11 @@ workflow.add_conditional_edges(
         }
     )
 
-workflow.add_edge("fetch_joke", "show_manu")
-workflow.add_edge("select_category", "show_manu")
-workflow.add_edge("reset_jokes", "show_manu")
-workflow.add_edge("change_language", "show_manu")
-workflow.add_edge("change_type", "show_manu")
+workflow.add_edge("fetch_joke", "show_menu")
+workflow.add_edge("select_category", "show_menu")
+workflow.add_edge("reset_jokes", "show_menu")
+workflow.add_edge("change_language", "show_menu")
+workflow.add_edge("change_type", "show_menu")
 workflow.add_edge("exit_bot", END)
 
 graph = workflow.compile()
