@@ -68,7 +68,7 @@ class Joke(BaseModel):
 class JokeState(BaseModel):
     # jokes: Annotated[List[Joke], add] = []
     jokes: List[Joke] = []
-    jokes_choice: Literal["n", "c", "q", "r", "l", "t"] = "n"  # next joke, change category, or quit
+    jokes_choice: Literal["n", "c", "q", "r", "l", "t", "cc"] = "n"  # next joke, change category, or quit
     category: Literal["neutral", "chuck", "all"] = "neutral"
     language: Literal["cs", "de", "en", "es", "eu", "fr", "gl", "hu", "it", "lt", "pl", "ru", "sv"] = "en"
     joke_type: Literal["LLM", "PYJOKE"] = "PYJOKE"
